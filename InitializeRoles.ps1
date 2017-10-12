@@ -1,10 +1,17 @@
+#Initialize all disks
+get-disk | where{$_.PartitionStyle -eq "RAW"} | Initialize-Disk -PartitionStyle GPT
 
-Add-WindowsFeature Failover-Clustering, Web-Server -IncludeManagementTools
+#Install required features
+Add-WindowsFeature Hyper-V,Failover-Clustering, Web-Server -IncludeManagementTools
 Add-WindowsFeature RSAT-AD-PowerShell, RSAT-ADDS -IncludeAllSubFeature
 Install-PackageProvider nuget –Verbose
 
-Write-Output "Required features have been installed, system will now reboot"
+#Change Username
+Rename-LocalUser -Name $env:USERNAME -NewName Administrator
 
-Wait-Event -Timeout 5
+#Download ASDK files
+mkdir C:\ASDK
+
+Invoke-WebRequest https://aka.ms/azurestackdevkitdownloader -OutFile C:\ASDK\asdk.exe
 
 Restart-Computer -Force
