@@ -13,6 +13,9 @@ Disable-InternetExplorerESC
 #Initialize all disks
 get-disk | where{$_.PartitionStyle -eq "RAW"} | Initialize-Disk -PartitionStyle GPT
 
+#Extend C drive
+Resize-Partition -DriveLetter C -Size (Get-PartitionSupportedSize -DriveLetter C).sizemax
+
 #Install required features
 Add-WindowsFeature Hyper-V,Failover-Clustering, Web-Server -IncludeManagementTools
 Add-WindowsFeature RSAT-AD-PowerShell, RSAT-ADDS -IncludeAllSubFeature
