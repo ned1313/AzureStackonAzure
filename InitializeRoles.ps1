@@ -28,5 +28,19 @@ Rename-LocalUser -Name $env:USERNAME -NewName Administrator
 mkdir C:\ASDK
 
 Invoke-WebRequest https://aka.ms/azurestackdevkitdownloader -OutFile C:\ASDK\asdk.exe
+$resp = Invoke-RestMethod -Method Get https://aka.ms/azurestack-asdkdownloads
+$resp2 = Invoke-RestMethod -Method Get -Uri $resp.DownloadProduct.DownloadReleases.Uri
+foreach($file in $resp2.DownloadFileList.Files)
+{
+    Start-BitsTransfer -Source "$($resp2.DownloadFileList.DownloadSource)$($file.FileName)" -Destination "C:\asdk\$($file.FileName)" -Asynchronous
+}
+
+do{
+    $bits = Get-BitsTransfer | ?{$_.jobstate -ne "transferred"}
+}while($bits.count -gt 1)
+
+Get-BitsTransfer | Complete-BitsTransfer
+
+
 
 Restart-Computer -Force
