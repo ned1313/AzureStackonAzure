@@ -49,7 +49,7 @@
       "type": "int",
       "minValue": 4,
       "maxValue": 16,
-      "defaultValue": 16,
+      "defaultValue": 4,
       "metadata": {
         "description": "The number of dataDisks to be returned in the output array, Azure Stack requires 4 minimum"
       }
@@ -65,11 +65,11 @@
     "publicIPAddressName": "myPublicIP",
     "publicIPAddressType": "Dynamic",
     "vmName": "AzSVM",
-    "vmSize": "Standard_ES16_v3",
+    "vmSize": "Standard_E16s_v3",
     "virtualNetworkName": "MyVNET",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
     "scriptFolder": ".",
-    "scriptFileName": "Configure-NestedVirtualization.ps1",
+    "scriptFileName": "InitializeRoles.ps1",
     "scriptParameters": "[concat('-artifactsLocation ', parameters('_artifactsLocation'), ' -artifactsLocationSasToken \"', parameters('_artifactsLocationSasToken'), '\" -folderName ', variables('scriptFolder'), ' -VMName ', variables('vmName'))]"
   },
   "resources": [
@@ -196,7 +196,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "[concat(parameters('_artifactsLocation'), '/', variables('ScriptFolder'), '/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
+                        "[concat(parameters('_artifactsLocation'),'/', variables('ScriptFileName'), parameters('_artifactsLocationSasToken'))]"
                     ],
                     "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFolder'), '/', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
                 }
