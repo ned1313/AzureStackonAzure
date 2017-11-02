@@ -164,9 +164,10 @@
               "name": "dataDisks",
               "count": "[parameters('numberOfDataDisks')]",
               "input": {
-                "diskSizeGB": 1023,
+                "diskSizeGB": 256,
                 "lun": "[copyIndex('dataDisks')]",
-                "createOption": "Empty"
+                "createOption": "Empty",
+                "sku": "Standard_LRS"
               }
             }
           ]
