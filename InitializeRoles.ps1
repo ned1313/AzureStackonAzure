@@ -41,6 +41,13 @@ do{
 
 Get-BitsTransfer | Complete-BitsTransfer
 
+cd C:\ASDK
 
+.\AzureStackDevelopmentKit.exe /verysilent
+
+do{
+    $process = Get-Process -Name AzureStackDevelopmentKit -ErrorAction SilentlyContinue
+    Wait-Event -Timeout 5
+}while($process -ne $null)
 
 Restart-Computer -Force

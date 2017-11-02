@@ -140,6 +140,7 @@
         "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
+        "licenseType": "Windows_Server",
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
         },
@@ -157,6 +158,9 @@
           },
           "osDisk": {
             "createOption": "FromImage",
+            "managedDisk" : {
+              "storageAccountType" :"Standard_LRS"
+            },
             "diskSizeGB": 512
           },
           "copy": [
@@ -167,7 +171,9 @@
                 "diskSizeGB": 256,
                 "lun": "[copyIndex('dataDisks')]",
                 "createOption": "Empty",
-                "sku": "Standard_LRS"
+                "managedDisk" : {
+                  "storageAccountType" : "Standard_LRS"
+                }
               }
             }
           ]
