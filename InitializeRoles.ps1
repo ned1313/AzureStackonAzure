@@ -50,4 +50,15 @@ do{
     Wait-Event -Timeout 5
 }while($process -ne $null)
 
+
+$vhdxPath = "C:\ASDK\Azure Stack Development Kit\CloudBuilder.vhdx"
+Mount-VHD -Path $vhdxPath -Passthru -ov mount
+$cloudbuilder = Get-Partition | ?{$_.DiskNumber -eq $mount.DiskNumber -and $_.size -gt 1GB}
+#CloudDeployment, fwupdate and tools
+copy-item -path "$($cloudbuilder.DriveLetter):\CloudDeployment" -Destination "C:\" -Recurse
+copy-item -path "$($cloudbuilder.DriveLetter):\fwupdate" -Destination "C:\" -Recurse
+copy-item -path "$($cloudbuilder.DriveLetter):\tools" -Destination "C:\" -Recurse
+
+Rename-LocalUser -Name AzSAdmin -NewName Administrator
+
 Restart-Computer -Force

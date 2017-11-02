@@ -1,10 +1,8 @@
-$vhdxPath = "C:\ASDK\Azure Stack Development Kit\CloudBuilder.vhdx"
-Mount-VHD -Path $vhdxPath -Passthru -ov mount
-$cloudbuilder = Get-Partition | ?{$_.DiskNumber -eq $mount.DiskNumber -and $_.size -gt 1GB}
-#CloudDeployment, fwupdate and tools
-copy-item -path "$($cloudbuilder.DriveLetter):\CloudDeployment" -Destination "C:\" -Recurse
-copy-item -path "$($cloudbuilder.DriveLetter):\fwupdate" -Destination "C:\" -Recurse
-copy-item -path "$($cloudbuilder.DriveLetter):\tools" -Destination "C:\" -Recurse
+
+
+cd C:\CloudDeployment\Setup
+.\InstallAzureStackPOC.ps1 -InfraAzureDirectoryTenantName yourdirectory.onmicrosoft.com -NATIPv4Subnet 172.16.0.0/24 -NATIPv4A
+
 
 #Enable CredSSP on domain controller
 Enable-WSManCredSSP -Role Server
