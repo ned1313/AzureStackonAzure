@@ -59,6 +59,6 @@ copy-item -path "$($cloudbuilder.DriveLetter):\CloudDeployment" -Destination "C:
 copy-item -path "$($cloudbuilder.DriveLetter):\fwupdate" -Destination "C:\" -Recurse
 copy-item -path "$($cloudbuilder.DriveLetter):\tools" -Destination "C:\" -Recurse
 
-Rename-LocalUser -Name AzSAdmin -NewName Administrator
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/ned1313/AzureStackonAzure/master/PostDeploy.ps1 -OutFile C:\ASDK\PostDeploy.ps1
 
 Restart-Computer -Force

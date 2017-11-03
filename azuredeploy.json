@@ -159,7 +159,7 @@
           "osDisk": {
             "createOption": "FromImage",
             "managedDisk" : {
-              "storageAccountType" :"Standard_LRS"
+              "storageAccountType" :"Premium_LRS"
             },
             "diskSizeGB": 512
           },
@@ -172,7 +172,7 @@
                 "lun": "[copyIndex('dataDisks')]",
                 "createOption": "Empty",
                 "managedDisk" : {
-                  "storageAccountType" : "Standard_LRS"
+                  "storageAccountType" : "Premium_LRS"
                 }
               }
             }
