@@ -36,7 +36,8 @@ foreach ($file in $resp2.DownloadFileList.Files) {
 
 do {
     $bits = Get-BitsTransfer | ? {$_.jobstate -ne "transferred"}
-}while ($bits.count -gt 1)
+    Get-BitsTransfer | ? {$_.jobstate -eq "Transferred"} | Complete-BitsTransfer
+}while ($bits -ne $null)
 
 Get-BitsTransfer | Complete-BitsTransfer
 
