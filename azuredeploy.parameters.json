@@ -4,6 +4,9 @@
     "parameters": {
       "adminUsername": {
         "value": "azsadmin"
+      },
+      "osDiskVhdUri" : {
+        "value": "https://nbazsvhd.blob.core.windows.net/images/CloudBuilder.vhd"
       }
     }
   }
