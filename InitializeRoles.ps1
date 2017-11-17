@@ -43,7 +43,7 @@ Get-BitsTransfer | Complete-BitsTransfer
 
 cd C:\ASDK
 
-.\AzureStackDevelopmentKit.exe /verysilent
+.\AzureStackDevelopmentKit.exe /silent /log="C:\ASDK\AzureStackDevelopmentKit.log"
 
 do {
     $process = Get-Process -Name AzureStackDevelopmentKit -ErrorAction SilentlyContinue
